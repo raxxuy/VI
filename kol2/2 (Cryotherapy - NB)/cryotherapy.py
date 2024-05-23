@@ -1,7 +1,7 @@
 import os
+
 os.environ['OPENBLAS_NUM_THREADS'] = '1'
 
-from sklearn.metrics import accuracy_score
 from sklearn.naive_bayes import GaussianNB
 
 dataset = [
@@ -73,6 +73,6 @@ if __name__ == '__main__':
     sample = [list(map(float, input().split(" ")))]
 
     # results
-    print(accuracy_score(test_y, classifier.predict(test_x)))
+    print(classifier.score(test_x, test_y))
     print(int(classifier.predict(sample)[0]))
     print(classifier.predict_proba(sample))

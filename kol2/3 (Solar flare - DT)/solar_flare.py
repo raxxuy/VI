@@ -1,7 +1,6 @@
 import os
 os.environ['OPENBLAS_NUM_THREADS'] = '1'
 
-from sklearn.metrics import accuracy_score
 from sklearn.preprocessing import OrdinalEncoder
 from sklearn.tree import DecisionTreeClassifier
 
@@ -1392,7 +1391,7 @@ dataset = [
 
 if __name__ == '__main__':
     # input
-    x = int(input()) / 100
+    x = 100 - int(input())
     criterion = input()
 
     # encoder
@@ -1400,13 +1399,13 @@ if __name__ == '__main__':
     encoder.fit([row[:-1] for row in dataset])
 
     # train data
-    train_set = dataset[int((1 - x) * len(dataset)):]
+    train_set = dataset[int(x / 100 * len(dataset)):]
     train_x = [row[:-1] for row in train_set]
     train_y = [row[-1] for row in train_set]
     train_x = encoder.transform(train_x)
 
     # test data
-    test_set = dataset[:int((1 - x) * len(dataset))]
+    test_set = dataset[:int(x / 100 * len(dataset))]
     test_x = [row[:-1] for row in test_set]
     test_y = [row[-1] for row in test_set]
     test_x = encoder.transform(test_x)
@@ -1421,6 +1420,6 @@ if __name__ == '__main__':
     # results
     print(f'Depth: {classifier.get_depth()}')
     print(f'Number of leaves: {classifier.get_n_leaves()}')
-    print(f'Accuracy: {accuracy_score(test_y, classifier.predict(test_x))}')
+    print(f'Accuracy: {classifier.score(test_x, test_y)}')
     print(f'Most important feature: {features.index(max(features))}')
     print(f'Least important feature: {features.index(min(features))}')

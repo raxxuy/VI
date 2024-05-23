@@ -1,7 +1,6 @@
 import os
 os.environ['OPENBLAS_NUM_THREADS'] = '1'
 
-from sklearn.metrics import accuracy_score
 from sklearn.ensemble import RandomForestClassifier
 
 dataset = [
@@ -190,10 +189,10 @@ if __name__ == '__main__':
     classifier.fit(train_x, train_y)
 
     # input sample
-    sample = list(map(float, input().split(" ")))
-    sample = [sample[:col_index] + sample[col_index + 1:]]
+    sample = [list(map(float, input().split(" ")))]
+    sample = sample[:col_index] + sample[col_index + 1:]
 
     # results
-    print(f'Accuracy: {accuracy_score(test_y, classifier.predict(test_x))}')
+    print(f'Accuracy: {classifier.score(test_x, test_y)}')
     print(classifier.predict(sample)[0])
     print(classifier.predict_proba(sample)[0])

@@ -2,7 +2,6 @@ import os
 os.environ['OPENBLAS_NUM_THREADS'] = '1'
 
 import warnings
-from sklearn.metrics import accuracy_score
 from sklearn.neural_network import MLPClassifier
 
 warnings.filterwarnings("ignore")
@@ -450,8 +449,8 @@ if __name__ == '__main__':
     classifier.fit(train_x, train_y)
 
     # results
-    accuracy1 = accuracy_score(train_y, classifier.predict(train_x))
-    accuracy2 = accuracy_score(val_y, classifier.predict(val_x))
+    accuracy1 = classifier.score(train_x, train_y)
+    accuracy2 = classifier.score(val_x, val_y)
 
     if accuracy1 > accuracy2 * 1.15:
         print("Se sluchuva overfitting")

@@ -1,7 +1,6 @@
 import os
 os.environ['OPENBLAS_NUM_THREADS'] = '1'
 
-from sklearn.metrics import accuracy_score
 from sklearn.preprocessing import OrdinalEncoder
 from sklearn.naive_bayes import CategoricalNB
 
@@ -1415,6 +1414,6 @@ if __name__ == '__main__':
     sample = encoder.transform([input().split(" ")])
 
     # results
-    print(accuracy_score(test_y, classifier.predict(test_x)))
+    print(classifier.score(test_x, test_y))
     print(classifier.predict(sample)[0])
     print(classifier.predict_proba(sample))
